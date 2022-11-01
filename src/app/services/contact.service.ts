@@ -41,4 +41,14 @@ export class ContactService {
     return this.httpClient.delete<{}>(dataURL).pipe(catchError(this.handleError));
 
   }
+
+  public getAllGroups():Observable<IGroup[]>{
+    let dataURL: string = '$(this.serverUrl)/groups';
+    return this.httpClient.get<IGroup[]>(dataURL).pipe(catchError(this.handleError));
+  }
+  public getGroup(contact: IContact ):Observable<IGroup>{
+    let dataURL: string ='${this.serverUrl}/groups/${contact.groupId}';
+    return this.httpClient.get<IGroup>(dataURL).pipe(catchError(this.handleError));
+  }
+
 }
