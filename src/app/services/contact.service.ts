@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import { Observable, catchError, throwError } from 'rxjs';
+import { IContact } from '../models/IContact';
+import { IGroup } from '../models/IGroup';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,15 +16,15 @@ export class ContactService {
   }
   public handleError(error: HttpErrorResponse){
     let errorMessage: string ='';
-    if(error.error instanceof ErrorEvent){
-      errorMessage='Error: $(error.error.message)'
+    if (error.error instanceof ErrorEvent){
+      errorMessage='Error: ${error.error.message}';
     }else{
-      errorMessage='Status : $(error.status)\n Message: ${error.message}'
+      errorMessage='Status : ${error.status}\n Message: ${error.message}';
     }
     return throwError(errorMessage);
 
   }
-  public getContact(contactId: string ):Observable<IContacts>{
+  public getContact(contactId: string ):Observable<IContact>{
     let dataURL: string ='${this.serverUrl}/contacts/${contactId}';
     return this.httpClient.get<IContact>(dataURL).pipe(catchError(this.handleError));
   }
