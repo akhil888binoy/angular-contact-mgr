@@ -7,18 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddContactComponent implements OnInit {
   public loading : boolean =false;
-  public conatc : IContact = {} as IContact;
+  public contact : IContact = {} as IContact;
   public errorMessage : string |null =null;
   public groups: IGroup[]= [] as IGroup[];
 
-  constructor(private ContactService : ContactService) { }
+  constructor(private ContactService : ContactService, private router : Router) { }
 
   ngOnInit(): void {
     this.contactService.getAllGroups().subscribe(next:(data:IGroup)=>{
       this.groups =data;
     }, error(error)=>{
       this.errorMessage=error;
-      
+
+    })
+  }
+  public createSubmit(){
+    this.contactService.createContact(this.contact).subscribe(next:(data : IContact)=>{
+        this.router.navigate(commands['/']).then();
+    }, error(error)=>{
+      this.errorMessage=error;
+      this.router.navigate(commands['/contacts/add']).then();
     })
   }
 

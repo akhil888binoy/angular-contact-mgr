@@ -11,6 +11,7 @@ import { EditContactComponent } from './components/edit-contact/edit-contact.com
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ContactManagerComponent } from './components/contact-manager/contact-manager.component';
 import { ViewContactComponent } from './components/view-contact/view-contact.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { ViewContactComponent } from './components/view-contact/view-contact.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
