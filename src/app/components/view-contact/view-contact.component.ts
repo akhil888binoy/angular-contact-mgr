@@ -12,13 +12,12 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class ViewContactComponent implements OnInit {
   public loading:boolean =false;
-  public contactId: string |null =null;
+  public contactId: string | null =null;
   public contact: IContact={} as IContact;
   public errorMessage : string | null= null;
   public group : IGroup ={} as IGroup;
 
-  constructor(private activatedRoute: ActivatedRoute,
-  private contactService: ContactService) { }
+  constructor(private activatedRoute: ActivatedRoute, private contactService: ContactService) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(next: (param: Params)=>{
