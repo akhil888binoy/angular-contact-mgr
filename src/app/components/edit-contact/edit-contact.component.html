@@ -17,28 +17,76 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-3">
-        <form>
+        <form (submit)="submitUpdate()">
           <div class="mb-2">
-            <input type="text" placeholder="Name" class="form-control" >
+            <input
+            required="true"
+            [(ngModel)]="contact.name"
+            value= "contact.name"
+            name=" name"
+            type="text"
+            placeholder="Name"
+            class="form-control" >
           </div>
           <div class="mb-2">
-            <input type="text" placeholder="Photo Url" class="form-control" >
+            <input
+            required="true"
+            [(ngModel)]="contact.photo"
+            value= "contact.photo"
+            name= "photo"
+            type="text"
+            placeholder="Photo Url"
+            class="form-control" >
           </div>
           <div class="mb-2">
-            <input type="email" placeholder="Email" class="form-control" >
+            <input
+              required="true"
+              [(ngModel)]="contact.email"
+              value= "contact.email"
+              name= "email"
+               type="email"
+               placeholder="Email"
+               class="form-control" >
           </div>
           <div class="mb-2">
-            <input type="number" placeholder="Mobile" class="form-control" >
+            <input
+              required="true"
+              [(ngModel)]="contact.mobile"
+              value= "contact.mobile"
+              name= "mobile"
+             type="number"
+             placeholder="Mobile"
+             class="form-control" >
           </div>
           <div class="mb-2">
-            <input type="text" placeholder="Company" class="form-control" >
+            <input
+              required="true"
+              [(ngModel)]="contact.company"
+              value= "contact.company"
+              name= "company"
+              type="text"
+              placeholder="Company"
+              class="form-control" >
           </div>
           <div class="mb-2">
-            <input type="text" placeholder="Title" class="form-control" >
+            <input
+            required="true"
+            [(ngModel)]="contact.title"
+            value= "contact.title"
+            name= "title"
+            type="text"
+            placeholder="Title"
+            class="form-control" >
           </div>
           <div class="mb-2">
-            <select  class="form-control">
+            <select
+              required="true"
+              [(ngModel)]="contact.groupId"
+              value= "contact.groupId"
+              name= "groupId"
+              class="form-control">
               <option value="">Select a Group</option>
+              <option [value]="group.id" *ngFor="let group of groups">{{group.name}}</option>
             </select>
             <div class="mb-2">
               <input type="submit" placeholder="Name"  value="Update" class="btn btn-danger" >
@@ -48,7 +96,7 @@
         </form>
     </div>
     <div class="col-sm-4">
-        <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png" alt="" class="contact-img">
+        <img [src]="contact.photo" alt="" class="contact-img">
     </div>
   </div>
 </div>

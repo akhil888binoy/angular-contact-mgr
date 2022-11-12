@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { IContact } from 'src/app/models/IContact';
+import { IGroup } from 'src/app/models/IGroup';
 
 @Component({
   selector: 'app-add-contact',
@@ -23,10 +26,10 @@ export class AddContactComponent implements OnInit {
   }
   public createSubmit(){
     this.contactService.createContact(this.contact).subscribe(next:(data : IContact)=>{
-        this.router.navigate(commands['/']).then();
+        this.router.navigate(commands:['/']).then();
     }, error(error)=>{
       this.errorMessage=error;
-      this.router.navigate(commands['/contacts/add']).then();
+      this.router.navigate(commands:['/contacts/add']).then();
     })
   }
 

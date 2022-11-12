@@ -14,7 +14,7 @@
                 <input type="text" class="form-control" placeholder="Search User">
             </div>
             <div class="col">
-                <input type="submit" class="btn btn-outline-dark" vaalue="Search">
+                <input type="submit" class="btn btn-outline-dark" value="Search">
             </div>
           </div>
         </div>
@@ -62,10 +62,10 @@
                 <a href="" class="btn btn-warning my-1" routerLink="/contacts/view/{{contact.id}}">
                   <i class="fa fa-eye"></i>
                 </a>
-                <a href="" class="btn btn-primary my-1" routerLink="/contacts/edit/:contactId">
+                <a href="" class="btn btn-primary my-1" routerLink="/contacts/edit/{{contact.id}}">
                   <i class="fa fa-pen"></i>
                 </a>
-                <button class="btn btn-danger my-1">
+                <button class="btn btn-danger my-1" (click)="clickDeleteContact(contact.id)">
                   <i class="fa fa-trash-alt"></i>
                 </button>
             </div>
