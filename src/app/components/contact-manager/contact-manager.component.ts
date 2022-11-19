@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {IContact} from "../../models/IContact";
-import {ContactService} from "../../services/contact.service";
+import { IContact } from "../../models/IContact";
+import { ContactService } from "../../services/contact.service";
 @Component({
   selector: 'app-contact-manager',
   templateUrl: './contact-manager.component.html',
@@ -8,31 +8,43 @@ import {ContactService} from "../../services/contact.service";
 })
 export class ContactManagerComponent implements OnInit {
   public loading:boolean =false;
-  public contacts:IContact[]=[];
-  public errorMessage:string |null =null;
+  contacts : IContact = {
+    id : '',
+    name: '',
+    email: '',
+    photo: '',
+    mobile: '',
+    company: '',
+    title: '',
+    groupId: '',
+
+  }
+
   constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
     this.getAllContactsFromServer();
   }
-  public getAllContactsFromServer(){
+  getAllContactsFromServer(){
     this.loading=true;
-    this.contactService.getAllContacts().subscribe(next:(data: IContact[])=>{
+    this.contactService.getAllContacts(this.contacts).subscribe({
+      next: (data: IContact)=>{
       this.contacts=data;
       this.loading=false;
-    }, error:(error)=>{
-      this.errorMessage=error;
+    }, error:(err)=>{
+      console.log(err);
       this.loading=false;
+    }
     });
   }
-  public clickDeleteContact(contactId : string){
+  clickDeleteContact(contactId : string){
     if(contactId){
-      this.contactService.deleteContact(contactId).subscribe(next:(data:[])=>{
+      this.contactService.deleteContact(contactId).subscribe({
+        next:(data)=>{
         this.getAllContactsFromServer();
-      }, error: (error)=>{
-        this.errorMessage=error;03
-      })
+      }, error : (err)=>{
+        console.log(err)
+      });
     }
-  }
 
 }

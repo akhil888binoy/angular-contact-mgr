@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { IContact } from 'src/app/models/IContact';
 import { IGroup } from 'src/app/models/IGroup';
 import { Router } from '@angular/router';
-import { Params } from '@angular/router';
 import {ContactService} from "../../services/contact.service";
 
 @Component({
@@ -12,43 +11,59 @@ import {ContactService} from "../../services/contact.service";
   styleUrls: ['./edit-contact.component.css']
 })
 export class EditContactComponent implements OnInit {
+  public contactId: string | null =null;
   public loading: boolean =false;
-  public contactId : string | null =null;
-  public contact : IContact ={} as IContact;
-  public errorMessage: string | null = null;
-  public groups : IGroup[]= [] as IGroup[]
+  contact : IContact = {
+    id : '',
+    name: '',
+    email: '',
+    photo: '',
+    mobile: '',
+    company: '',
+    title: '',
+    groupId: '',
 
+  }
+
+  groups : IGroup ={
+    id: '',
+    name: '',
+  }
   constructor(private activatedRoute : ActivatedRoute,
   private contactService: ContactService,
   private router : Router) { }
 
   ngOnInit(): void {
     this.loading= true;
-    this.activatedRoute.paramMap.subscribe(next: (param : ParamMap)=>{
+    this.activatedRoute.paramMap.subscribe( (param )=>{
       this.contactId = param.get('contactId')
     });
     if(this.contactId){
-      this.contactService.getContact(this.contactId).subscribe(next:(data: IContact)=>{
+      this.contactService.getContact(this.contactId).subscribe({
+        next:(data: IContact)=>{
             this.contact = data;
             this.loading= false;
-            this.contactService.getAllGroups().subscribe(next:(data: IGroup)=>{
+            this.contactService.getAllGroups().subscribe(
+              next:(data: IGroup)=>{
               this.groups= data;
 
             })
-          }, error:(error)=>{
-              this.errorMessage=error;
+          }, error:(err)=>{
+              console.log(err)
               this.loading=false;
       })
+      }
 
-    }
+
   }
-  public submitUpdate(){
+  submitUpdate(){
     if(this.contactId){
-      this.contactService.updateContact(this.contact, this.contactId).subscribe(next:(data: IContact)=>{
-        this.router.navigate(commands:['/']).then();
-      }, error:(error)=>{
-        this.errorMessage =error;
-        this.router.navigate(commands:['/contacts/edit/$(this.contactId)']).then();
+      this.contactService.updateContact(this.contact).subscribe(
+        next:(data: IContact)=>{
+        this.router.navigate(['/']);
+      }, error:(err)=>{
+        console.log(err);
+        //this.router.navigate(['/contacts/edit/$(this.contactId)]);
       })
     }
   }
