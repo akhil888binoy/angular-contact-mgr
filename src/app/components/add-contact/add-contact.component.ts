@@ -31,23 +31,22 @@ export class AddContactComponent implements OnInit {
   constructor(private contactService : ContactService, private router : Router) { }
 
   ngOnInit(): void {
-    this.contactService.getAllGroups(this.groups).subscribe({
+    this.contactService.getAllGroups().subscribe({
       next:(data:IGroup)=>{
       this.groups =data;
     }, error:(err)=>{
         console.log(err)
-
+    }
     });
   }
-}
+
  createSubmit(){
     this.contactService.createContact(this.contact).subscribe({
-      next:(data : IContact)=>{
-        this.router.navigate(['/']);
+      next:(data)=>{
+        this.router.navigate(["/"]);
     }, error:(err)=>{
       console.log(err);
       }
     });
   }
-
 }
