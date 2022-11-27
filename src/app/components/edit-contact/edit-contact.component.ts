@@ -43,7 +43,7 @@ export class EditContactComponent implements OnInit {
         next:(data: IContact)=>{
             this.contact = data;
             this.loading= false;
-            this.contactService.getAllGroups().subscribe(
+            this.contactService.getAllGroups().subscribe({
               next:(data: IGroup)=>{
               this.groups= data;
 
@@ -51,19 +51,21 @@ export class EditContactComponent implements OnInit {
           }, error:(err)=>{
               console.log(err)
               this.loading=false;
-      })
+          }
+        })
       }
-
-
+    
+    
   }
   submitUpdate(){
     if(this.contactId){
-      this.contactService.updateContact(this.contact).subscribe(
+      this.contactService.updateContact(this.contact, this.contact.id).subscribe({
         next:(data: IContact)=>{
         this.router.navigate(['/']);
       }, error:(err)=>{
         console.log(err);
-        //this.router.navigate(['/contacts/edit/$(this.contactId)]);
+       // this.router.navigate(['/contacts/edit/$(this.contactId)]);
+        }
       })
     }
   }
