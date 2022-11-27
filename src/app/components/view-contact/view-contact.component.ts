@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from " @angular/router";
+import {ActivatedRoute} from '@angular/router';
 import { IContact } from 'src/app/models/IContact';
 import { IGroup } from 'src/app/models/IGroup';
 import { ContactService } from 'src/app/services/contact.service';
@@ -12,7 +12,7 @@ import { ContactService } from 'src/app/services/contact.service';
 export class ViewContactComponent implements OnInit {
   public loading:boolean =false;
   public contactId: string | null =null;
-  contacts : IContact={
+  contact : IContact={
     id : '',
     name: '',
     email: '',
@@ -31,25 +31,39 @@ export class ViewContactComponent implements OnInit {
      private contactService: ContactService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(next: (param: Params)=>{
-      this.contactId= param.get('contactId');
+    this.activatedRoute.paramMap.subscribe((param)=>{
+      var contactId=  (param.get('contactId');
+      this.getContact(contactId);
     });
+    
+    getContact(contactId : string){
+      this.contactService.getContact(contactId).subscribe((data)=>{
+        this.contact=data;
+      
+      })
+    }
     if(this.contactId){
       this.loading = true;
-        this.contactService.getContact(this.contactId).subscribe( 
+        this.contactService.getContact(this.contactId).subscribe({
           next: (data: IContact)=>{
             this.contact = data;
             this.loading =false;
-            this.contactService.getGroup(data).subscribe(
+            this.contactService.getGroup(data).subscribe({
               next:(data: IGroup)=>{
               this.group = data;
 
+            }, error: (err)=>{
+                console.log(err)
+            
+              }
             })
-        }, error: (err)=>{
-          console.log(err)
-          this.loading =false;
-
+              
+            }
+              
         })
+        
+        }
+          
     }
 }
   isNotEmpty(){

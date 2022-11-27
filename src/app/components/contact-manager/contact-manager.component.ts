@@ -27,7 +27,7 @@ export class ContactManagerComponent implements OnInit {
   }
   getAllContactsFromServer(){
     this.loading=true;
-    this.contactService.getAllContacts(contacts).subscribe({
+    this.contactService.getAllContacts(this.contacts).subscribe({
       next: (data: IContact)=>{
       this.contacts=data;
       this.loading=false;

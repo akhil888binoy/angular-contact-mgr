@@ -20,19 +20,19 @@
 
 </div>
 <!--Error Message-->
-<div *ngIf="!loading  && errorMessage">
+<div >
   <div class="container">
     <div class="row">
       <div class="col">
         <p class="h4 text-danger fw-bold">
-              {{errorMessage}}
+              
         </p>
       </div>
     </div>
   </div>
 
 <!--Contact Details-->
-<div class="container" *ngIf="!loading && isNotEmpty()">
+<div class="container" >
   <div class="row align-items-center">
     <div class="col-sm-4">
         <img  class=" contact-img-big "  [src]="contact.photo"  alt="">
