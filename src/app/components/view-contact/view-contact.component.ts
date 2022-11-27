@@ -36,7 +36,7 @@ export class ViewContactComponent implements OnInit {
     });
     if(this.contactId){
       this.loading = true;
-        this.contactService.getContact(this.contactId).subscribe( {
+        this.contactService.getContact(this.contactId).subscribe( 
           next: (data: IContact)=>{
             this.contact = data;
             this.loading =false;

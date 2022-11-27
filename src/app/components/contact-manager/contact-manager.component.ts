@@ -27,7 +27,7 @@ export class ContactManagerComponent implements OnInit {
   }
   getAllContactsFromServer(){
     this.loading=true;
-    this.contactService.getAllContacts(this.contacts).subscribe({
+    this.contactService.getAllContacts(contacts).subscribe({
       next: (data: IContact)=>{
       this.contacts=data;
       this.loading=false;
@@ -44,6 +44,7 @@ export class ContactManagerComponent implements OnInit {
         this.getAllContactsFromServer();
       }, error : (err)=>{
         console.log(err)
+        }
       });
     }
 
